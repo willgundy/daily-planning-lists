@@ -6,27 +6,100 @@ const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export async function getAllLists() {
     const response = await client 
-        .from('f1_driver_standings')
-        .select('*')
-        .order('position');
-
-    return response.body;
-}
-
-export async function getDriverDetails() {
-    const response = await client 
-        .from('f1_drivers')
+        .from('planner-lists')
         .select('*');
 
     return response.body;
 }
 
-export async function getSingleDriverDetail(driverId) {
+export async function getListById(listId) {
     const response = await client 
-        .from('f1_drivers')
+        .from('planner-lists')
         .select('*')
-        .match({ 'driverId': driverId })
+        .match({ 'list_id': listId })
         .single();
 
+    return response.body;
+}
+
+export async function getActiveLists() {
+    const response = await client 
+        .from('planner-lists')
+        .select('*')
+        .match({ 'status': 'active' });
+
+    return response.body;
+}
+
+export async function getCompletedLists() {
+    const response = await client 
+        .from('planner-lists')
+        .select('*')
+        .match({ 'status': 'completed' });
+
+    return response.body;
+}
+
+export async function updateListToCompleted(listId) {
+    const response = await client 
+        .from('planner-lists')
+        .update({ 'status': 'completed' })
+        .match({ 'list_id': listId })
+        .single();
+
+    return response.body;
+}
+
+export async function createList(list){
+    const response = await client
+        .from('planner-lists')
+        .insert(list);
+    
+    return response.body;
+}
+
+
+export async function getAllItems() {
+    const response = await client 
+        .from('planner-items')
+        .select('*');
+
+    return response.body;
+}
+
+export async function getItemById(itemId) {
+    const response = await client 
+        .from('planner-items')
+        .select('*')
+        .match({ 'item_id': itemId })
+        .single();
+
+    return response.body;
+}
+
+export async function getItemsByListId(listId) {
+    const response = await client 
+        .from('planner-items')
+        .select('*')
+        .match({ 'list_id': listId });
+
+    return response.body;
+}
+
+export async function updateItemToCompleted(itemId) {
+    const response = await client 
+        .from('planner-items')
+        .update({ 'status': 'completed' })
+        .match({ 'item_id': itemId })
+        .single();
+
+    return response.body;
+}
+
+export async function createItem(item){
+    const response = await client
+        .from('planner-items')
+        .insert(item);
+    
     return response.body;
 }
