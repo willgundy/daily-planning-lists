@@ -81,6 +81,7 @@ export async function getItemsByListId(listId) {
     const response = await client 
         .from('planner-items')
         .select('*')
+        .order('importance', { ascending: false })
         .match({ 'list_id': listId });
 
     return response.body;
@@ -90,6 +91,16 @@ export async function updateItemToComplete(itemId) {
     const response = await client 
         .from('planner-items')
         .update({ 'status': 'complete' })
+        .match({ 'item_id': itemId })
+        .single();
+
+    return response.body;
+}
+
+export async function updateItemImportance(itemId, importance) {
+    const response = await client 
+        .from('planner-items')
+        .update({ 'importance': importance })
         .match({ 'item_id': itemId })
         .single();
 

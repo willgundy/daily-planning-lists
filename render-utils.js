@@ -1,5 +1,8 @@
 import { displayListItems } from './planner/planner.js';
-import { getItemsByListId, updateItemToComplete, updateItemToActive } from './fetch-utils.js';
+import { getItemsByListId, 
+    updateItemToComplete, 
+    updateItemToActive,
+    updateItemImportance } from './fetch-utils.js';
 
 export function renderListButton(list) {
     const listButtonEl = document.createElement('button');
@@ -33,6 +36,8 @@ export function renderActiveItems(item, list) {
     listItemName.textContent = item.item_name;
 
     listItemEl.append(listItemName);
+
+    listItemEl.id = item.item_id;
 
     if (list.status === 'active') {
         listItemName.addEventListener('click', () => {
@@ -96,18 +101,23 @@ function renderImportanceDiv(item) {
 
     importanceIncreaseBtn.addEventListener('click', (e) => {
         let importance = e.path[1].childNodes[2].innerText;
+        const itemId = e.path[2].id;
 
         importance++;
 
         e.path[1].childNodes[2].innerText = importance;
+
+        updateItemImportance(itemId, importance);
     });
 
     importanceDecreaseBtn.addEventListener('click', (e) => {
         let importance = e.path[1].childNodes[2].innerText;
+        const itemId = e.path[2].id;
 
         importance--;
 
         e.path[1].childNodes[2].innerText = importance;
+        updateItemImportance(itemId, importance);
     });
 
     importanceDiv.classList.add('flex-row');
