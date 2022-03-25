@@ -8,14 +8,19 @@ import { getAllLists,
     getItemById,
     getItemsByListId,
     updateItemToComplete,
-    createItem
+    createItem,
+    logout,
+    login,
+    signUp,
+    checkAuth,
+    getUser
 } from '../fetch-utils.js';
 
-import { renderActiveItems, renderCompletedList, renderListButton } from '../render-utils.js';
+import { renderActiveItems, renderCompletedList, renderListButton, shortDate } from '../render-utils.js';
 
 
 const listForm = document.getElementById('list-form');
-const createListBtn = document.getElementById('createListBtn');
+const logoutBtn = document.getElementById('logout');
 
 const activeListBtnContainer = document.getElementById('activeListBtnContainer');
 
@@ -29,9 +34,13 @@ const completedListsContainer = document.getElementById('completedListsContainer
 const itemInput = document.getElementById('itemInput');
 const itemInputBtn = document.getElementById('itemInputBtn');
 
+const selectedActiveList = document.getElementById('selectedActiveList');
+
 
 let listName = '';
 let listDate = '';
+
+checkAuth();
 
 window.addEventListener('load', async () => {
     await displayListBtns();
@@ -53,9 +62,11 @@ async function displayListBtns() {
 export async function displayListItems(list) {
     const items = await getItemsByListId(list.list_id);
 
-    activeListName.textContent = list.list_name;
+    activeListName.textContent = list.list_name + ' for ' + shortDate(list.date);
 
     activeListItemContainer.innerHTML = '';
+
+    selectedActiveList.classList.remove('hidden');
 
     for (let item of items) {
         const itemEl = renderActiveItems(item, list);
@@ -128,6 +139,8 @@ finishListBtn.addEventListener('click', async () => {
 
     activeListName.innerHTML = '';
 
+    selectedActiveList.classList.add('hidden');
+
     displayCompletedLists();
 });
 
@@ -142,3 +155,7 @@ async function displayCompletedLists() {
         completedListsContainer.append(completedListEl);
     }
 }
+
+logoutBtn.addEventListener('click', () => {
+    logout();
+});

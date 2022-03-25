@@ -16,7 +16,7 @@ export function renderListButton(list) {
         await displayListItems(list);
     });
 
-    listButtonEl.textContent = list.list_name;
+    listButtonEl.textContent = list.list_name + ' - ' + shortDate(list.date);
     listButtonEl.value = list.list_id;
 
     return listButtonEl;
@@ -52,10 +52,10 @@ export async function renderCompletedList(list) {
     completedListDiv.classList.add('completedListDiv');
 
     const listItems = await getItemsByListId(list.list_id);
-    console.log(listItems);
 
     const completedListHeader = document.createElement('h3');
-    completedListHeader.textContent = list.list_name;
+    completedListHeader.textContent = list.list_name + ' - ' + shortDate(list.date);
+    completedListHeader.classList.add('completedHeader');
 
     completedListDiv.append(completedListHeader);
 
@@ -65,4 +65,11 @@ export async function renderCompletedList(list) {
     }
 
     return completedListDiv;
+}
+
+export function shortDate(date) {
+    var dateFormat = new Date(date);
+    
+    return (dateFormat.getMonth() + 1) + 
+    '/' + dateFormat.getDate();
 }

@@ -113,3 +113,37 @@ export async function createItem(item){
     
     return response.body;
 }
+
+export async function signUp(email, password){
+    const response = await client.auth.signUp({ email, password });
+    
+    return response.user;
+}
+
+export async function login(email, password){
+    const response = await client.auth.signIn({ email, password });
+
+    return response.user;
+}
+
+export async function logout() {
+    await client.auth.signOut();
+
+    return window.location.href = '../';
+}
+
+export async function checkAuth() {
+    const user = await getUser();
+
+    if (!user) location.replace('../'); 
+}
+
+export async function getUser() {
+    return client.auth.session();
+}
+
+export async function redirectToPlanner() {
+    if (await getUser()) {
+        location.replace('./planner');
+    }
+}

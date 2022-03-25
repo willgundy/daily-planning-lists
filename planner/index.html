@@ -16,7 +16,7 @@
 <body>
     <header>
         <h2>Daily Planner</h2>
-        <button id="logout">logout</button>
+        <button id="logout" class="buttons">LOGOUT</button>
     </header>
     <main>
         <section id="createListContainer">
@@ -30,23 +30,27 @@
                     List Date:
                     <input type="date" name="list-date">
                 </label>
-                <button id="createListBtn">Create List</button>
+                <button id="createListBtn" class="buttons">Create New List</button>
             </form>
         </section>
-        <section id="activeList">
-            <h2>Active Lists</h2>
+        <section id="activeListContainer">
             <div id="activeListBtnContainer" class="flex-row">
                 
             </div>
-            <h2 id="activeListName"></h2>
-            <input type="text" id="itemInput" placeholder="Item Input...">
-            <button id="itemInputBtn">Add</button>
-            <ul id="activeListItemContainer">
-                
-            </ul>
-            <button id="finishListBtn">
-                Finish List
-            </button>
+            <div id="selectedActiveList" class="hidden">
+                <div id="activeList">
+                    <h2 id="activeListName"></h2>
+                    <div class="flex-row">
+                        <input type="text" id="itemInput" placeholder="Item Input...">
+                        <button id="itemInputBtn">Add</button>
+                    </div>
+                </div>
+                <ul id="activeListItemContainer">
+                </ul>
+                <button id="finishListBtn">
+                    Finish List
+                </button>
+            </div>
         </section>
         <section>
             <h2>Completed Lists</h2>
