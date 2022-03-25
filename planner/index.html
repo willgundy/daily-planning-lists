@@ -26,31 +26,33 @@
                     List name
                     <input type="text" name="list-name">
                 </label>
-                <label for="number-items">
-                    # of Items
-                    <input type="number" name="number-items">
+                <label for="start">
+                    List Date:
+                    <input type="date" name="list-date">
                 </label>
                 <button id="createListBtn">Create List</button>
             </form>
         </section>
         <section id="activeList">
             <h2>Active Lists</h2>
-            <div id="activeListBtns" class="flex-row">
-                <button class="activeListBtn displayList">Groceries</button>
+            <div id="activeListBtnContainer" class="flex-row">
+                
             </div>
-            <h2>Groceries</h2>
-            <ul>
-                <li>Bananas</li>
-                <li>Apples</li>
-                <li>Bananas</li>
-                <li class="completed">Apples</li>
+            <h2 id="activeListName"></h2>
+            <input type="text" id="itemInput" placeholder="Item Input...">
+            <button id="itemInputBtn">Add</button>
+            <ul id="activeListItemContainer">
+                
             </ul>
-            <button>
+            <button id="finishListBtn">
                 Finish List
             </button>
         </section>
-        <section id="completedListsContainer">
+        <section>
             <h2>Completed Lists</h2>
+            <div id="completedListsContainer">
+
+            </div>
         </section>
     </main>
 

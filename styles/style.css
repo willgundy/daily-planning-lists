@@ -140,7 +140,7 @@ ul {
     width: 100%;
 }
 
-.completed {
+li.completed {
     background: #888;
     color: #fff;
     text-decoration: line-through;
@@ -148,5 +148,16 @@ ul {
 
 #completedListsContainer {
     width: 80vw;
-    height: 10vh;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.completedListDiv {
+    width: 20vw;
+    height: 100%;
+    border: 1px solid black;
+    margin: 10px;
 }

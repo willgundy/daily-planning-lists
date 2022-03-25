@@ -35,7 +35,7 @@ export async function getCompletedLists() {
     const response = await client 
         .from('planner-lists')
         .select('*')
-        .match({ 'status': 'completed' });
+        .match({ 'status': 'complete' });
 
     return response.body;
 }
@@ -43,7 +43,7 @@ export async function getCompletedLists() {
 export async function updateListToCompleted(listId) {
     const response = await client 
         .from('planner-lists')
-        .update({ 'status': 'completed' })
+        .update({ 'status': 'complete' })
         .match({ 'list_id': listId })
         .single();
 
@@ -86,10 +86,20 @@ export async function getItemsByListId(listId) {
     return response.body;
 }
 
-export async function updateItemToCompleted(itemId) {
+export async function updateItemToComplete(itemId) {
     const response = await client 
         .from('planner-items')
-        .update({ 'status': 'completed' })
+        .update({ 'status': 'complete' })
+        .match({ 'item_id': itemId })
+        .single();
+
+    return response.body;
+}
+
+export async function updateItemToActive(itemId) {
+    const response = await client 
+        .from('planner-items')
+        .update({ 'status': 'active' })
         .match({ 'item_id': itemId })
         .single();
 
