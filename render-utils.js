@@ -24,15 +24,18 @@ export function renderListButton(list) {
 
 export function renderActiveItems(item, list) {
     const listItemEl = document.createElement('li');
+    const listItemName = document.createElement('span');
 
     if (item.status === 'complete') {
         listItemEl.classList.add('completed');
     }
 
-    listItemEl.textContent = item.item_name;
+    listItemName.textContent = item.item_name;
+
+    listItemEl.append(listItemName);
 
     if (list.status === 'active') {
-        listItemEl.addEventListener('click', () => {
+        listItemName.addEventListener('click', () => {
             if (listItemEl.classList.contains('completed')) {
                 updateItemToActive(item.item_id);
             } else {
@@ -41,6 +44,11 @@ export function renderActiveItems(item, list) {
 
             listItemEl.classList.toggle('completed');
         });
+
+        const importanceDiv = renderImportanceDiv(item);
+
+        listItemEl.append(importanceDiv);
+
     }
 
     return listItemEl;
@@ -72,4 +80,39 @@ export function shortDate(date) {
     
     return (dateFormat.getMonth() + 1) + 
     '/' + dateFormat.getDate();
+}
+
+function renderImportanceDiv(item) {
+    const importanceDiv = document.createElement('span');
+    const importanceIncreaseBtn = document.createElement('button');
+    const importanceDecreaseBtn = document.createElement('button');
+    const importanceEl = document.createElement('span');
+
+
+
+    importanceEl.innerText = item.importance;
+    importanceIncreaseBtn.innerText = '+';
+    importanceDecreaseBtn.innerText = '-';
+
+    importanceIncreaseBtn.addEventListener('click', (e) => {
+        let importance = e.path[1].childNodes[2].innerText;
+
+        importance++;
+
+        e.path[1].childNodes[2].innerText = importance;
+    });
+
+    importanceDecreaseBtn.addEventListener('click', (e) => {
+        let importance = e.path[1].childNodes[2].innerText;
+
+        importance--;
+
+        e.path[1].childNodes[2].innerText = importance;
+    });
+
+    importanceDiv.classList.add('flex-row');
+
+    importanceDiv.append(importanceIncreaseBtn, importanceDecreaseBtn, importanceEl);
+
+    return importanceDiv;
 }
