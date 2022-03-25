@@ -1,19 +1,13 @@
-import { getAllLists,
+import { 
     getListById,
     getActiveLists,
     getCompletedLists,
     updateListToCompleted,
     createList,
-    getAllItems,
-    getItemById,
     getItemsByListId,
-    updateItemToComplete,
     createItem,
     logout,
-    login,
-    signUp,
-    checkAuth,
-    getUser
+    checkAuth
 } from '../fetch-utils.js';
 
 import { renderActiveItems, renderCompletedList, renderListButton, shortDate } from '../render-utils.js';
@@ -151,7 +145,6 @@ async function displayCompletedLists() {
 
     for (let list of completedLists) {
         const completedListEl = await renderCompletedList(list);
-        console.log(completedListEl);
         completedListsContainer.append(completedListEl);
     }
 }
