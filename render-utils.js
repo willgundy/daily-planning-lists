@@ -4,7 +4,7 @@ import { getItemsByListId,
     updateItemToActive,
     updateItemImportance,
     deleteItem, 
-    getListById} from './fetch-utils.js';
+    getListById } from './fetch-utils.js';
 
 export function renderListButton(list) {
     const listButtonEl = document.createElement('button');
