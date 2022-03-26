@@ -252,3 +252,29 @@ li.completed {
 #selectedActiveList {
     border: 1px solid black;
 }
+
+.removeItem {
+    padding: 0px 7px;
+    margin: 0px;
+}
+
+.removeItem:hover {
+    background-color:#ce372c;
+    color: white;
+}
+
+.itemName {
+    min-width: 30vw;
+}
+
+.importanceEl {
+    margin-right: 5px;
+}
+
+.listHeader{
+    background-color: #555;
+    color: whitesmoke;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 40px;
+}

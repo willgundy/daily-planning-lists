@@ -2,7 +2,9 @@ import { displayListItems } from './planner/planner.js';
 import { getItemsByListId, 
     updateItemToComplete, 
     updateItemToActive,
-    updateItemImportance } from './fetch-utils.js';
+    updateItemImportance,
+    deleteItem, 
+    getListById} from './fetch-utils.js';
 
 export function renderListButton(list) {
     const listButtonEl = document.createElement('button');
@@ -34,6 +36,7 @@ export function renderActiveItems(item, list) {
     }
 
     listItemName.textContent = item.item_name;
+    listItemName.classList.add('itemName');
 
     listItemEl.append(listItemName);
 
@@ -52,7 +55,9 @@ export function renderActiveItems(item, list) {
 
         const importanceDiv = renderImportanceDiv(item);
 
-        listItemEl.append(importanceDiv);
+        const removeItemDiv = renderRemoveItemDiv(item);
+
+        listItemEl.append(importanceDiv, removeItemDiv);
 
     }
 
@@ -92,6 +97,7 @@ function renderImportanceDiv(item) {
     const importanceIncreaseBtn = document.createElement('button');
     const importanceDecreaseBtn = document.createElement('button');
     const importanceEl = document.createElement('span');
+    importanceEl.classList.add('importanceEl');
 
 
 
@@ -100,29 +106,62 @@ function renderImportanceDiv(item) {
     importanceDecreaseBtn.innerText = '-';
 
     importanceIncreaseBtn.addEventListener('click', (e) => {
-        let importance = e.path[1].childNodes[2].innerText;
+        let importance = e.path[1].childNodes[0].innerText;
         const itemId = e.path[2].id;
 
         importance++;
 
-        e.path[1].childNodes[2].innerText = importance;
+        e.path[1].childNodes[0].innerText = importance;
 
         updateItemImportance(itemId, importance);
     });
 
     importanceDecreaseBtn.addEventListener('click', (e) => {
-        let importance = e.path[1].childNodes[2].innerText;
+        let importance = e.path[1].childNodes[0].innerText;
         const itemId = e.path[2].id;
 
         importance--;
 
-        e.path[1].childNodes[2].innerText = importance;
+        e.path[1].childNodes[0].innerText = importance;
         updateItemImportance(itemId, importance);
     });
 
     importanceDiv.classList.add('flex-row');
 
-    importanceDiv.append(importanceIncreaseBtn, importanceDecreaseBtn, importanceEl);
+    importanceDiv.append(importanceEl, importanceIncreaseBtn, importanceDecreaseBtn);
 
     return importanceDiv;
+}
+
+function renderRemoveItemDiv(item) {
+    const removeItemEl = document.createElement('span');
+    removeItemEl.classList.add('removeItem');
+    removeItemEl.textContent = '\u00D7';
+    removeItemEl.id = item.item_id;
+
+    removeItemEl.addEventListener('click', async () => {
+        await deleteItem(item.item_id); 
+        const list = await getListById(item.list_id);
+        await displayListItems(list);
+    });
+
+    return removeItemEl;
+}
+
+export function renderListHeader() {
+    const listHeaderEl = document.createElement('ul');
+    const itemHeader = document.createElement('span');
+    const priorityHeader = document.createElement('span');
+    const removeItemHeader = document.createElement('span');
+
+    listHeaderEl.classList.add('listHeader');
+
+    itemHeader.classList.add('itemName');
+
+    itemHeader.textContent = 'Item';
+    priorityHeader.textContent = 'Priority';
+    removeItemHeader.textContent = 'Remove';
+
+    listHeaderEl.append(itemHeader, priorityHeader, removeItemHeader);
+    return listHeaderEl;
 }

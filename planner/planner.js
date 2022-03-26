@@ -10,7 +10,12 @@ import {
     checkAuth
 } from '../fetch-utils.js';
 
-import { renderActiveItems, renderCompletedList, renderListButton, shortDate } from '../render-utils.js';
+import { renderActiveItems, 
+    renderCompletedList, 
+    renderListButton, 
+    shortDate,
+    renderListHeader
+} from '../render-utils.js';
 
 
 const listForm = document.getElementById('list-form');
@@ -59,6 +64,10 @@ export async function displayListItems(list) {
     activeListName.textContent = list.list_name + ' for ' + shortDate(list.date);
 
     activeListItemContainer.innerHTML = '';
+
+    const listHeader = renderListHeader();
+
+    activeListItemContainer.append(listHeader);
 
     selectedActiveList.classList.remove('hidden');
 
