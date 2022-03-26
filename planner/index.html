@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/home.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <h2>Daily Planner</h2>
+        <button id="logout" class="buttons">LOGOUT</button>
+    </header>
+    <main>
+        <section id="createListContainer">
+            <h2>Create a New List</h2>
+            <form id="list-form">
+                <label for="list-name">
+                    List name
+                    <input type="text" name="list-name">
+                </label>
+                <label for="start">
+                    List Date:
+                    <input type="date" name="list-date">
+                </label>
+                <button id="createListBtn" class="buttons">Create New List</button>
+            </form>
+        </section>
+        <section id="activeListContainer">
+            <div id="activeListBtnContainer" class="flex-row">
+                
+            </div>
+            <div id="selectedActiveList" class="hidden">
+                <div id="activeList">
+                    <h2 id="activeListName"></h2>
+                    <div class="flex-row">
+                        <input type="text" id="itemInput" placeholder="Item Input...">
+                        <button id="itemInputBtn">Add</button>
+                    </div>
+                </div>
+                <ul id="activeListItemContainer">
+                    
+                </ul>
+                <button id="finishListBtn">
+                    Finish List
+                </button>
+            </div>
+        </section>
+        <section>
+            <h2>Completed Lists</h2>
+            <div id="completedListsContainer">
+
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="./planner.js"></script>
+</body>
+
+</html>

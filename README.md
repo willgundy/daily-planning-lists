@@ -24,3 +24,19 @@ Additional considerations:
   - What needs to live in a persistence layer?
 - Is there some state we need to initialize?
 - Ask: should any of this work be abstracted into functions? (i.e., is the work complicated? can it be resused?)
+
+
+![wireframe](assets/wireframe.png)
+
+To Do
+1. HTML skeleton
+2. Create Tables in Supabase
+3. Grab DOM Elements
+4. fetch utils
+5. render utils
+6. event listeners
+7. login page
+8. signup page
+
+HTML Skeleton
+1. 
